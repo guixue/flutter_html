@@ -352,10 +352,15 @@ class RubyElement extends ReplacedElement {
 ReplacedElement parseReplacedElement(dom.Element element) {
   switch (element.localName) {
     case "audio":
-      final sources = <String>[
-        if (element.attributes['src'] != null) element.attributes['src'],
-        ...ReplacedElement.parseMediaSources(element.children),
-      ];
+      final sources = List<String>();
+      List<String> paresedSources =
+          ReplacedElement.parseMediaSources(element.children);
+      if (element.attributes['src'] != null) {
+        sources.add(element.attributes['src']);
+      }
+      for (var item in paresedSources) {
+        sources.add(item);
+      }
       return AudioContentElement(
         name: "audio",
         src: sources,
@@ -385,10 +390,20 @@ ReplacedElement parseReplacedElement(dom.Element element) {
         node: element,
       );
     case "video":
-      final sources = <String>[
-        if (element.attributes['src'] != null) element.attributes['src'],
-        ...ReplacedElement.parseMediaSources(element.children),
-      ];
+      // final sources = <String>[
+      //   if (element.attributes['src'] != null) element.attributes['src'],
+      //   ...ReplacedElement.parseMediaSources(element.children),
+      // ];
+      //Fiex dart error
+      final sources = List<String>();
+      List<String> paresedSources =
+          ReplacedElement.parseMediaSources(element.children);
+      if (element.attributes['src'] != null) {
+        sources.add(element.attributes['src']);
+      }
+      for (var item in paresedSources) {
+        sources.add(item);
+      }
       return VideoContentElement(
         name: "video",
         src: sources,
